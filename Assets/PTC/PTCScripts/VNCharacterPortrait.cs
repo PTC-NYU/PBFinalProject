@@ -1,18 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using Yarn.Unity;
 
 public class VNCharacterPortrait : MonoBehaviour
 {
+    [Header("Character")] 
+    public string characterName;
+    
     [Header("Character Sprites")] 
-    public Sprite neutralSprite;
-    public Sprite happySprite;
-    public Sprite angrySprite;
+    public List<Expressions> expressions = new List<Expressions>();
+    public string startingExpression = "neutral";
 
-    [Header("Other Character")] 
-    public VNCharacterPortrait otherCharacter;
     
     [Header("Animation")]
+    public bool useAnimation = true; 
+    // legit just for Erin bc of how MC corner sprite will work
+    
     public float backDist = 60f;
     public float backScale = 0.9f;
     public float animationSpeed = 8f;
@@ -34,14 +39,22 @@ public class VNCharacterPortrait : MonoBehaviour
         ogPosition = characterRectTransform.anchoredPosition;
         ogSize = characterRectTransform.localScale;
 
-        SetExpression("neutral");
-        
-        
+        SetExpression(startingExpression);
+
+        if (!useAnimation)
+        {
+            characterImage.color = Color.white;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!useAnimation)
+        {
+            return;
+        }
+        
         Vector2 targetPos;
         Vector3 targetSize;
         Color targetColor;
@@ -71,37 +84,23 @@ public class VNCharacterPortrait : MonoBehaviour
         isSpeaking = speaking;
     }
 
-    [YarnCommand("speak")]
-    public void Speak(string expression = "")
-    {
-        SetSpeaking(true);
-
-        if (otherCharacter != null)
-        {
-            otherCharacter.SetSpeaking(false);
-        }
-
-        if (!string.IsNullOrEmpty(expression))
-        {
-            SetExpression(expression);
-        }
-    }
-    
-    
-    [YarnCommand("expression")]
     public void SetExpression(string expression)
     {
-        switch (expression)
+        foreach (Expressions Ename in expressions)
         {
-            case "neutral":
-                characterImage.sprite = neutralSprite;
-                break;
-            case  "happy":
-                characterImage.sprite = happySprite;
-                break;
-            case "angry" :
-                characterImage.sprite = angrySprite;
-                break;
+            if (Ename.expressionName == expression)
+            {
+                if (Ename.sprite != null)
+                {
+                    characterImage.sprite = Ename.sprite;
+                }
+                else
+                {
+                    Debug.Log("No sprite on" + expression);
+                }
+
+                return;
+            }
         }
     }
     
