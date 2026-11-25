@@ -1,8 +1,15 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using Yarn.Unity;
+[Serializable]
+public class Expressions 
+{
+    public string expressionName;
+    public Sprite sprite;
+}
 
 public class VNCharacterPortrait : MonoBehaviour
 {

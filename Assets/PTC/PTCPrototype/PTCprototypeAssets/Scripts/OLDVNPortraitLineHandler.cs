@@ -7,6 +7,7 @@ public class OLDVNPortraitLineHandler : MonoBehaviour
     public OLDVNCharacterPortrait ebenholz;
     public OLDVNCharacterPortrait kreide;
 
+    /*
     [YarnCommand("portrait")]
     public void ChangePortrait(string speakerName, string expression)
     {
@@ -29,6 +30,7 @@ public class OLDVNPortraitLineHandler : MonoBehaviour
             Debug.Log("Character name not found!");
         }
     }
+    */
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
