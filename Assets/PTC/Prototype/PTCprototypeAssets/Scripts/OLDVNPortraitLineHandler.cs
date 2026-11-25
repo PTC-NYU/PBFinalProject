@@ -1,11 +1,11 @@
 using UnityEngine;
 using Yarn.Unity;
 
-public class VNPortraitLineHandler : MonoBehaviour
+public class OLDVNPortraitLineHandler : MonoBehaviour
 {
     [Header("Character Portraits")] 
-    public VNCharacterPortrait ebenholz;
-    public VNCharacterPortrait kreide;
+    public OLDVNCharacterPortrait ebenholz;
+    public OLDVNCharacterPortrait kreide;
 
     [YarnCommand("portrait")]
     public void ChangePortrait(string speakerName, string expression)
